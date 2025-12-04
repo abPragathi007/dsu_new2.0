@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="form.css">
+    <style>
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Registration Form</h2>
+        <form id="regForm" action="#" method="POST">
+            <label>Name</label>
+            <input type="text" name="name" required>
+
+            <label>USN</label>
+            <input type="text" name="usn" required>
+
+            <label>College</label>
+            <input type="text" name="college" required>
+
+            <label>Course</label>
+            <input type="text" name="course" required>
+
+            <label>Course Specialization</label>
+            <input type="text" name="specialization" required>
+
+            <label>Date of Birth</label>
+            <input type="date" name="dob" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Address</label>
+            <textarea name="address" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('regForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Disable button and show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+                
+                try {
+                    // Get form data
+                    const formData = new FormData(form);
+                    const formObject = Object.fromEntries(formData.entries());
+                    
+                    // Send data to server
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formObject)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'success-message';
+                    successMessage.textContent = 'Thank you for your submission! We will get back to you soon.';
+                    form.parentNode.insertBefore(successMessage, form.nextSibling);
+                    
+                    // Reset form
+                    form.reset();
+                    form.style.display = 'none';
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('There was a problem with your submission. Please try again later.');
+                } finally {
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
