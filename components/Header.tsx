@@ -56,6 +56,13 @@ const Header: React.FC = () => {
     </span>
   </div>
 </Link>
+<a 
+  href="http://localhost:3000/" 
+  target="_blank" 
+  className="hover:text-blue-500"
+>
+  Registration
+</a>
 
         {/* thumbnails removed from header; displayed in hero */}
 
