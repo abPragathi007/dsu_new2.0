@@ -56,13 +56,18 @@ const Header: React.FC = () => {
     </span>
   </div>
 </Link>
+
 <a 
-  href="http://localhost:3000/" 
+  href="/dsu_new2.0/Rform/form.html" 
   target="_blank" 
-  className="hover:text-blue-500"
+  rel="noreferrer"
+  className="text-white ml-4"
 >
   Registration
 </a>
+
+
+
 
         {/* thumbnails removed from header; displayed in hero */}
 

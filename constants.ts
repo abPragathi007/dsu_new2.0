@@ -6,7 +6,6 @@ export const WHATSAPP_NUMBER = "918042161750"; // Generic DSU contact number
 
 export const NAV_LINKS = [
   { name: 'Home', path: '/' },
-  { name: 'Registration', path: '/Rform/form.html' },
   { name: 'Admissions', path: '/admissions' },
   { name: 'Academics', path: '/academics' },
   { name: 'Placements', path: '/placements' },

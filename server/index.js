@@ -30,6 +30,47 @@ function generateMockReply(message) {
   return "I'm Sagar, DSU's admissions assistant. How can I help you today?";
 }
 
+// Form submission endpoint
+app.post('/api/register', async (req, res) => {
+  try {
+    const { name, usn, college, course, specialization, dob, email, address } = req.body;
+    
+    // Basic validation
+    if (!name || !usn || !college || !course || !specialization || !dob || !email || !address) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    
+    // Log the submission (in a real app, you would save this to a database)
+    console.log('New registration received:', {
+      name,
+      usn,
+      college,
+      course,
+      specialization,
+      dob,
+      email: email, // In a real app, you might want to log a masked version
+      address: address // In a real app, you might want to handle PII more carefully
+    });
+    
+    // In a real application, you would:
+    // 1. Save to a database
+    // 2. Send a confirmation email
+    // 3. Maybe trigger other workflows
+    
+    res.status(200).json({ 
+      success: true,
+      message: 'Registration successful! We will get back to you soon.'
+    });
+    
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ 
+      success: false,
+      error: 'An error occurred while processing your registration. Please try again later.'
+    });
+  }
+});
+
 app.post('/api/chat', async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: 'message is required' });
